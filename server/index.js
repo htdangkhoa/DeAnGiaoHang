@@ -170,7 +170,9 @@ app.get("/create-order", function(req, res) {
   }
 
   res.render("create-order", {
-    title: config.TITLES.CREATE_ORDER
+    title: config.TITLES.CREATE_ORDER,
+    urban: config.URBAN,
+    subUrban: config.SUB_URBAN
   });
 });
 

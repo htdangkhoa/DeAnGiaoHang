@@ -8,6 +8,8 @@
 
 body .container {
   margin-bottom: 60px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .footer {
@@ -73,4 +75,9 @@ body .container {
 
 .product-detail {
   margin-bottom: 10px;
+}
+
+.custom-select {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
