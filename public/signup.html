@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "./components/head.html" %}
+
+<body>
+  {% include "./components/nav.html" %}
+
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        {% include "./components/error.html" %}
+        
+        <form action="/api/signup" method="POST">
+          <div class="form-group">
+            <label for="ipName">Họ và tên</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-user"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control" name="name" id="ipName" placeholder="Họ và tên" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ipEmail">Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-envelope"></i>
+                </div>
+              </div>
+              <input type="email" class="form-control" name="email" id="ipEmail" placeholder="Email" required>
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label for="ipPassword">Mật khẩu</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-key"></i>
+                </div>
+              </div>
+              <input type="password" class="form-control" name="password" id="ipPassword" placeholder="Mật khẩu" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ipAddress">Địa chỉ</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-address-card"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control" name="address" id="ipAddress" placeholder="Địa chỉ" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ipPassword">Điện thoại</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-phone fliped"></i>
+                </div>
+              </div>
+              <input type="tel" class="form-control" name="phone" id="ipPhone" placeholder="Điện thoại" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% include "./components/footer.html" %}
+</body>
+
+</html>

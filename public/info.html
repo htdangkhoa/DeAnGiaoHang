@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "./components/head.html" %}
+
+<body>
+  {% include "./components/nav.html" %}
+
+  <div class="container">
+    {% include "./components/error.html" %}
+    
+    {% if user.role === "USER" %}
+    <p><b>Tên:</b> {{ user.name }}</p>
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>Địa chỉ:</b> {{ user.address }}</p>
+    <p><b>Số đt:</b> {{ user.phone }}</p>
+    {% else %}
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header" id="heading">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse" aria-expanded="true"
+              aria-controls="collapse">
+              Thông tin
+            </button>
+          </h5>
+        </div>
+    
+        <div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordion">
+          <div class="card-body">
+            <p><b>Tên:</b> {{ user.name }}</p>
+            <p><b>Email:</b> {{ user.email }}</p>
+            <p><b>Địa chỉ:</b> {{ user.address }}</p>
+            <p><b>Số đt:</b> {{ user.phone }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "./components/table.html" %}
+    {% endif %}
+  </div>
+
+  {% include "./components/footer.html" %}
+</body>
+
+</html>

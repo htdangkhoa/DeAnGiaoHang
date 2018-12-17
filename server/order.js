@@ -1,0 +1,141 @@
+const _ = require("lodash");
+
+const router = require("express").Router();
+
+const roles = require("./models/user.model").roles;
+
+const Order = require("./models/order.model");
+
+router.post("/order", function(req, res) {
+  const userId = req.body.userId;
+
+  const sPhone = req.body.sPhone;
+
+  const sName = req.body.sName;
+
+  const sAddress = req.body.sAddress;
+
+  const rPhone = req.body.rPhone;
+
+  const rName = req.body.rName;
+
+  const rAddress = req.body.rAddress;
+
+  const weight = req.body.weight;
+
+  const productNames = req.body.productNames;
+
+  const productDescriptions = req.body.productDescriptions;
+
+  const productQuantities = req.body.productQuantities;
+
+  const note = req.body.note;
+
+  const charge = req.body.charge;
+
+  if (
+    !userId ||
+    !sPhone ||
+    !sName ||
+    !sAddress ||
+    !rPhone ||
+    !rName ||
+    !rAddress ||
+    !weight ||
+    !note ||
+    !charge ||
+    !_.isArray(productNames) ||
+    !_.isArray(productDescriptions) ||
+    !_.isArray(productQuantities)
+  ) {
+    return res.redirect(
+      `/create-order?error=${encodeURI("Please enter full information.")}`
+    );
+  }
+
+  var products = _.zipWith(
+    productNames,
+    productDescriptions,
+    productQuantities,
+    function(name, description, quantity) {
+      return {
+        productName: name,
+        productDescription: description,
+        productQuantity: parseInt(quantity) || 1
+      };
+    }
+  );
+
+  new Order({
+    userId: userId,
+    sPhone: sPhone,
+    sName: sName,
+    sAddress: sAddress,
+    rPhone: rPhone,
+    rName: rName,
+    rAddress: rAddress,
+    products: products
+  }).save(function(error, order) {
+    if (error) {
+      console.log(error);
+
+      return res.redirect(`/create-order?error=${encodeURI(error.errmsg)}`);
+    }
+
+    return res.redirect(`/tracking-order?_id=${order._id}`);
+  });
+});
+
+router.post("/assign", function(req, res) {
+  const _id = req.body._id;
+
+  const assignFor = req.body.assignFor;
+
+  if (!_id || !assignFor) {
+    return res.redirect(`/info?error=${encodeURI("Please choose employee.")}`);
+  }
+
+  return Order.findByIdAndUpdate(_id, { $set: { assignedFor: assignFor } })
+    .then(function(order) {
+      res.redirect("/info");
+    })
+    .catch(function(error) {
+      console.log(error);
+
+      return res.redirect(
+        `/info?error=${encodeURI(error.errmsg)}`
+      );
+    });
+});
+
+router.post("/update-status", function(req, res) {
+  const _id = req.body._id;
+
+  const role = req.body.role;
+
+  const status = req.body.status;
+
+  Order.findByIdAndUpdate(_id, { $set: { status: status } })
+    .then(function(order) {
+      if (!order) {
+        return res.redirect(
+          role === roles.USER
+            ? `/cart?error=${encodeURI("Invalid order.")}`
+            : `/info?error=${encodeURI("Invalid order.")}`
+        );
+      }
+
+      return res.redirect(role === roles.USER ? "/cart" : "/info");
+    })
+    .catch(function(error) {
+      console.log(error);
+
+      return res.redirect(
+        role === roles.USER
+          ? `/cart?error=${encodeURI(error.errmsg)}`
+          : `/info?error=${encodeURI(error.errmsg)}`
+      );
+    });
+});
+
+module.exports = router;

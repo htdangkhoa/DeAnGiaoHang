@@ -1,0 +1,77 @@
+<div class="table-container table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Người gửi</th>
+        <th scope="col">Người nhận</th>
+        <th scope="col">Lựa chọn</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <th class="index" scope="row">{{ loop.index }}</th>
+        <td>
+          <a href="/tracking-order?_id={{ order._id.toString() }}">
+            {{ order._id.toString() }}
+          </a>
+        </td>
+        <td class="status">{{ order.status }}</td>
+        <td class="sender">{{ order.sName }}</td>
+        <td class="receiver">{{ order.rName }}</td>
+        <td class="action">
+          {% if user.role === "ADMIN" %}
+            <div class="action-container">
+              {% if !order.assignedFor %}
+              <form action="/api/assign" method="POST" class="form-inline assign-form">
+                <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+              
+                <!-- <button type="submit" class="btn btn-success">Hoàn thành</button> -->
+              
+                <select class="form-control" name="assignFor">
+                  <option selected>Choose...</option>
+                  {% for em in employees %}
+                  <option value="{{ em._id.toString() }}">{{ em.name }}</option>
+                  {% endfor %}
+                </select>
+              
+                <button type="submit" class="btn btn-success">Chỉ định</button>
+              </form>
+              
+              <form action="/api/update-status" method="POST">
+                <input type="hidden" name="role" value="{{ user.role }}">
+                <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+                <input type="hidden" name="status" value="rejected">
+              
+                <button type="submit" class="btn btn-danger">Từ chối</button>
+              </form>
+              {% endif %}
+            </div>
+          {% elseif user.role === "EMPLOYEE" %}
+          <form action="/api/update-status" method="POST">
+            <input type="hidden" name="role" value="{{ user.role }}">
+            <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+            <input type="hidden" name="status" value="done">
+            
+            <button type="submit" class="btn btn-success">Hoàn thành</button>
+          </form>
+          {% else %}
+            {% if order.status === "pending" %}
+            <form action="/api/update-status" method="POST">
+              <input type="hidden" name="role" value="{{ user.role }}">
+              <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+              <input type="hidden" name="status" value="canceled">
+              
+              <button type="submit" class="btn btn-danger">Hủy bỏ</button>
+            </form>
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

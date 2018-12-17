@@ -1,0 +1,76 @@
+.logo {
+  margin-right: 10px;
+}
+
+.dropdown-menu {
+  margin-bottom: 12px;
+}
+
+body .container {
+  margin-bottom: 60px;
+}
+
+.footer {
+  height: 60px;
+}
+
+.banner {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.message-error {
+  color: red;
+}
+
+.fliped {
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+}
+
+.weight-info {
+  color: #dc3545;
+}
+
+.table-container {
+  margin: 16px 0;
+}
+
+.table tbody tr .index {
+  min-width: 80px;
+}
+
+.table tbody tr .status {
+  min-width: 120px;
+}
+
+.table tbody tr .sender {
+  min-width: 200px;
+}
+
+.table tbody tr .receiver {
+  min-width: 200px;
+}
+
+.table tbody tr .action {
+  min-width: 335px;
+}
+
+.table tbody tr .action .action-container {
+  display: flex;
+}
+
+.table tbody tr .action .action-container form:nth-child(1) {
+  margin-right: 12px;
+}
+
+.table tbody tr .action .action-container form.assign-form select {
+  max-width: 120px;
+  margin-right: 12px;
+}
+
+.product-detail {
+  margin-bottom: 10px;
+}

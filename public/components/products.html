@@ -1,0 +1,22 @@
+<div class="table-container table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên sản phẩm</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Số lượng</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in order.products %}
+      <tr>
+        <th class="index" scope="row">{{ loop.index }}</th>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.productDescription }}</td>
+        <td>{{ product.productQuantity }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

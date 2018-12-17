@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "./components/head.html" %}
+
+<body>
+  {% include "./components/nav.html" %}
+
+  <div class="container">
+    <p>
+      <b>Mã đơn hàng:</b> {{ order._id.toString() }}
+    </p>
+    <p>
+      <b>Trạng thái:</b>
+      {% if order.status === "pending" %}
+      <span class="badge badge-pill badge-warning">{{ order.status }}</span>
+      {% elseif order.status === "done" %}
+      <span class="badge badge-pill badge-success">{{ order.status }}</span>
+      {% else %}
+      <span class="badge badge-pill badge-danger">{{ order.status }}</span>
+      {% endif %}
+    </p>
+    
+    <p><b>Họ tên người gửi:</b> {{ order.sName }}</p>
+    <p><b>Số điện thoại người gửi:</b> {{ order.sPhone }}</p>
+    <p><b>Địa chỉ người gửi:</b> {{ order.sAddress }}</p>
+
+    <p><b>Họ tên người nhận:</b> {{ order.rName }}</p>
+    <p><b>Số điện thoại người nhận:</b> {{ order.rPhone }}</p>
+    <p><b>Địa chỉ người nhận:</b> {{ order.rAddress }}</p>
+
+    {% include "./components/products.html" %}
+  </div>
+
+  {% include "./components/footer.html" %}
+</body>
+
+</html>
