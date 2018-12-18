@@ -41,6 +41,14 @@ const Order = new Schema({
     type: [{ type: Types.Mixed }],
     default: []
   },
+  price: {
+    type: Types.Number,
+    required: true
+  },
+  weight: {
+    type: Types.Number,
+    required: true
+  },
   status: {
     type: Types.String,
     default: "pending"

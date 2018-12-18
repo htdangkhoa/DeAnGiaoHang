@@ -9,10 +9,10 @@
   <div class="container container-padding-top-bottom">
     {% include "./components/error.html" %}
 
-    <div class="row justify-content-center align-items-center">
-      <div class="col">
-        <div class="accordion" id="accordionExample">
-          <form id="createOrderForm" action="/api/order" method="POST" enctype="application/json">
+    <form id="createOrderForm" action="/api/order" method="POST" enctype="application/json">
+      <div class="row justify-content-center align-items-center">
+        <div class="col">
+          <div class="accordion" id="accordionExample">
             <input type="hidden" name="userId" value="{{ user._id }}">
             <div class="card">
               <div class="card-header" id="headingOne">
@@ -23,12 +23,12 @@
                   </button>
                 </h5>
               </div>
-            
+      
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
                   <div class="form-group">
                     <h4>Người gửi</h4>
-
+      
                     <div class="form-container">
                       <label for="ipSenderPhone">Số điện thoại người gửi</label>
                       <div class="input-group">
@@ -37,10 +37,11 @@
                             <i class="fas fa-phone fliped"></i>
                           </div>
                         </div>
-                        <input type="tel" class="form-control" name="sPhone" id="ipSenderPhone" placeholder="Số điện thoại người gửi" value="{{ user.phone }}" required>
+                        <input type="tel" class="form-control" name="sPhone" id="ipSenderPhone" placeholder="Số điện thoại người gửi"
+                          value="{{ user.phone }}" required>
                       </div>
                     </div>
-
+      
                     <div class="form-container">
                       <label for="ipSenderName">Họ tên người gửi</label>
                       <div class="input-group">
@@ -49,10 +50,11 @@
                             <i class="fas fa-user"></i>
                           </div>
                         </div>
-                        <input type="text" class="form-control" name="sName" id="ipSenderName" placeholder="Họ tên người gửi" value="{{ user.name }}" required>
+                        <input type="text" class="form-control" name="sName" id="ipSenderName" placeholder="Họ tên người gửi"
+                          value="{{ user.name }}" required>
                       </div>
                     </div>
-
+      
                     <div class="form-container">
                       <label for="ipSenderAddress">Địa chỉ người gửi</label>
                       <div class="input-group">
@@ -61,27 +63,28 @@
                             <i class="fas fa-address-card"></i>
                           </div>
                         </div>
-
-                        <input type="text" class="form-control" name="sAddress" id="ipSenderAddress" placeholder="Địa chỉ người gửi" value="{{ user.address }}" required>
-
-                        <!-- <div class="input-group-append">
-                          <select class="custom-select">
-                            <option selected>Quận</option>
-                            {% for district in urban  %}
+      
+                        <input type="text" class="form-control" name="sAddress" id="ipSenderAddress" placeholder="Địa chỉ người gửi"
+                          value="{{ user.address }}" required>
+      
+                        <div class="input-group-append">
+                          <select class="custom-select" name="sDistrict" required>
+                            <option disabled selected value>Quận</option>
+                            {% for district in urban %}
                             <option value="{{ district.code }}">{{ district.name }}</option>
                             {% endfor %}
                             {% for district in subUrban %}
                             <option value="{{ district.code }}">{{ district.name }}</option>
                             {% endfor %}
                           </select>
-                        </div> -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                  
+      
                   <div class="form-group">
                     <h4>Người nhận</h4>
-
+      
                     <div class="form-container">
                       <label for="ipReceieverPhone">Số điện thoại người nhận</label>
                       <div class="input-group">
@@ -90,10 +93,11 @@
                             <i class="fas fa-phone fliped"></i>
                           </div>
                         </div>
-                        <input type="tel" class="form-control" name="rPhone" id="ipReceieverPhone" placeholder="Số điện thoại người nhận" required>
+                        <input type="tel" class="form-control" name="rPhone" id="ipReceieverPhone" placeholder="Số điện thoại người nhận"
+                          required>
                       </div>
                     </div>
-
+      
                     <div class="form-container">
                       <label for="ipReceieverName">Họ tên người nhận</label>
                       <div class="input-group">
@@ -102,10 +106,11 @@
                             <i class="fas fa-user"></i>
                           </div>
                         </div>
-                        <input type="text" class="form-control" name="rName" id="ipReceieverName" placeholder="Họ tên người nhận" required>
+                        <input type="text" class="form-control" name="rName" id="ipReceieverName" placeholder="Họ tên người nhận"
+                          required>
                       </div>
                     </div>
-
+      
                     <div class="form-container">
                       <label for="ipReceieverAddress">Địa chỉ người nhận</label>
                       <div class="input-group">
@@ -114,12 +119,13 @@
                             <i class="fas fa-address-card"></i>
                           </div>
                         </div>
-
-                        <input type="text" class="form-control" name="rAddress" id="ipReceieverAddress" placeholder="Địa chỉ người nhận" required>
-
-                        <!-- <div class="input-group-append">
-                          <select class="custom-select">
-                            <option selected>Quận</option>
+      
+                        <input type="text" class="form-control" name="rAddress" id="ipReceieverAddress" placeholder="Địa chỉ người nhận"
+                          required>
+      
+                        <div class="input-group-append">
+                          <select class="custom-select" name="rDistrict" required>
+                            <option disabled selected value>Quận</option>
                             {% for district in urban %}
                             <option value="{{ district.code }}">{{ district.name }}</option>
                             {% endfor %}
@@ -127,18 +133,18 @@
                             <option value="{{ district.code }}">{{ district.name }}</option>
                             {% endfor %}
                           </select>
-                        </div> -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                  
+      
                   <button id="btnNextToStep2" type="button" class="btn btn-primary">
                     Tiếp tục <i class="fas fa-chevron-circle-right"></i>
                   </button>
                 </div>
               </div>
             </div>
-            
+      
             <div class="card">
               <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
@@ -148,51 +154,27 @@
                   </button>
                 </h5>
               </div>
-            
+      
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
                   <div class="form-group">
-                    <h4>Chọn khối lượng</h4>
-                    
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="weight" id="weight1" value="1" checked>
-                      <label class="form-check-label" for="weight1">
-                        Rất nhỏ <span class="weight-info">(Khối lượng dưới 0.5kg)</span>
-                      </label>
-                    </div>
-                    
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="weight" id="weight2" value="2">
-                      <label class="form-check-label" for="weight2">
-                        Nhỏ <span class="weight-info">(Khối lượng từ 0.51 -> 1kg)</span>
-                      </label>
-                    </div>
-                    
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="weight" id="weight3" value="3">
-                      <label class="form-check-label" for="weight3">
-                        Trung bình <span class="weight-info">(Khối lượng từ 1.01 -> 2kg)</span>
-                      </label>
-                    </div>
-                    
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="weight" id="weight4" value="4">
-                      <label class="form-check-label" for="weight4">
-                        Lớn <span class="weight-info">(Khối lượng từ 2.01 -> 4kg)</span>
-                      </label>
-                    </div>
-                    
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="weight" id="weight5" value="5">
-                      <label class="form-check-label" for="weight5">
-                        Rất lớn <span class="weight-info">(Khối lượng trên 4kg)</span>
-                      </label>
+                    <h4>Nhập khối lượng</h4>
+
+                    <div class="form-container">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-weight-hanging"></i>
+                          </div>
+                        </div>
+                        <input type="number" step="any" class="form-control" name="weight" id="ipWeight" placeholder="Khối lượng" required>
+                      </div>
                     </div>
                   </div>
-
+      
                   <div class="form-group">
                     <h4>Danh sách sản phẩm</h4>
-
+      
                     <div id="product-list">
                       <div class="form-row product-detail">
                         <div class="col-5">
@@ -202,33 +184,34 @@
                           <input class="form-control" type="text" name="productDescriptions" placeholder="Mô tả">
                         </div>
                         <div class="col-2">
-                          <input class="form-control" type="number" min="1" name="productQuantities" placeholder="Số lượng" value="1">
+                          <input class="form-control" type="number" min="1" name="productQuantities" placeholder="Số lượng"
+                            value="1">
                         </div>
                       </div>
                     </div>
-                    
+      
                     <button id="btnAddProduct" class="btn btn-primary" type="button">
                       Thêm sản phẩm <i class="fas fa-plus-circle"></i>
                     </button>
                   </div>
-                  
+      
                   <div class="form-group">
                     <h4>Lưu ý khi giao hàng</h4>
-                    
+      
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="note" id="note1" value="1" checked>
                       <label class="form-check-label" for="note1">
                         Cho xem hàng, không cho thử
                       </label>
                     </div>
-                    
+      
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="note" id="note2" value="2">
                       <label class="form-check-label" for="note2">
                         Cho thử hàng
                       </label>
                     </div>
-                    
+      
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="note" id="note2" value="2">
                       <label class="form-check-label" for="note2">
@@ -236,14 +219,14 @@
                       </label>
                     </div>
                   </div>
-                  
+      
                   <button id="btnNextToStep3" type="button" class="btn btn-primary">
                     Tiếp tục <i class="fas fa-chevron-circle-right"></i>
                   </button>
                 </div>
               </div>
             </div>
-            
+      
             <div class="card">
               <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
@@ -253,19 +236,19 @@
                   </button>
                 </h5>
               </div>
-
+      
               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
                   <div class="form-group">
                     <h4>Chọn người thanh toán</h4>
-
+      
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="charge" id="charge1" value="1" checked>
                       <label class="form-check-label" for="charge1">
                         Người nhận trả phí
                       </label>
                     </div>
-                    
+      
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="charge" id="charge2" value="2">
                       <label class="form-check-label" for="charge2">
@@ -274,24 +257,26 @@
                     </div>
                   </div>
 
+                  <input id="ipPrice" type="hidden" name="price">
+      
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModel">
                     Tạo đơn hàng <i class="fas fa-cart-plus"></i>
                   </button>
-
+      
                   {% include "./components/modal.html" %}
                   {{ modal(
-                    "Xác nhận", 
-                    "Bạn có chắc chắn muốn tạo đơn hàng?", 
-                    "Hủy", 
-                    "Tạo đơn hàng <i class='fas fa-cart-plus'></i>") 
+                  "Xác nhận",
+                  "Bạn có chắc chắn muốn tạo đơn hàng?",
+                  "Hủy",
+                  "Tạo đơn hàng <i class='fas fa-cart-plus'></i>")
                   }}
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
   {% include "./components/footer.html" %}

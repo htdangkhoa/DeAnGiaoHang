@@ -15,11 +15,15 @@ router.post("/order", function(req, res) {
 
   const sAddress = req.body.sAddress;
 
+  const sDistrict = req.body.sDistrict;
+
   const rPhone = req.body.rPhone;
 
   const rName = req.body.rName;
 
   const rAddress = req.body.rAddress;
+
+  const rDistrict = req.body.rDistrict;
 
   const weight = req.body.weight;
 
@@ -33,19 +37,26 @@ router.post("/order", function(req, res) {
 
   const charge = req.body.charge;
 
+  const price = req.body.price;
+
   if (
     !userId ||
     !sPhone ||
     !sName ||
     !sAddress ||
+    !sDistrict ||
     !rPhone ||
     !rName ||
     !rAddress ||
+    !rDistrict ||
     !weight ||
+    isNaN(weight) ||
     !note ||
     !charge ||
     !productNames ||
-    !productQuantities
+    !productQuantities ||
+    !price ||
+    isNaN(price)
   ) {
     return res.redirect(
       `/create-order?error=${encodeURI("Please enter full information.")}`
@@ -54,7 +65,9 @@ router.post("/order", function(req, res) {
 
   var products = _.zipWith(
     _.isArray(productNames) ? productNames : [productNames],
-    _.isArray(productDescriptions) ? productDescriptions : [productDescriptions],
+    _.isArray(productDescriptions)
+      ? productDescriptions
+      : [productDescriptions],
     _.isArray(productQuantities) ? productQuantities : [productQuantities],
     function(name, description, quantity) {
       return {
@@ -73,7 +86,9 @@ router.post("/order", function(req, res) {
     rPhone: rPhone,
     rName: rName,
     rAddress: rAddress,
-    products: products
+    products: products,
+    weight: parseFloat(weight),
+    price: parseFloat(price)
   }).save(function(error, order) {
     if (error) {
       console.log(error);

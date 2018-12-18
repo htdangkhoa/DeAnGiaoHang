@@ -17,89 +17,89 @@ module.exports = {
   },
   URBAN: [
     {
-      code: 0,
+      code: 8549,
       name: "Quận 1"
     },
     {
-      code: 0,
+      code: 8550,
       name: "Quận 2"
     },
     {
-      code: 0,
+      code: 8551,
       name: "Quận 3"
     },
     {
-      code: 0,
+      code: 8552,
       name: "Quận 4"
     },
     {
-      code: 0,
+      code: 8553,
       name: "Quận 5"
     },
     {
-      code: 0,
+      code: 8554,
       name: "Quận 6"
     },
     {
-      code: 0,
+      code: 8555,
       name: "Quận 7"
     },
     {
-      code: 0,
+      code: 8556,
       name: "Quận 8"
     },
     {
-      code: 0,
+      code: 854948,
       name: "Quận 10"
     },
     {
-      code: 0,
+      code: 854949,
       name: "Quận 11"
     },
     {
-      code: 0,
+      code: 858466,
       name: "Quận Tân Bình"
     },
     {
-      code: 0,
+      code: 858480,
       name: "Quận Tân Phú"
     },
     {
-      code: 0,
+      code: 858078,
       name: "Quận Phú Nhuận"
     },
     {
-      code: 0,
+      code: 856684,
       name: "Quận Bình Thạnh"
     },
     {
-      code: 0,
+      code: 857186,
       name: "Quận Gò Vấp"
     }
   ],
   SUB_URBAN: [
     {
-      code: 0,
+      code: 838557,
       name: "Quận 9"
     },
     {
-      code: 0,
+      code: 83854950,
       name: "Quận 12"
     },
     {
-      code: 0,
+      code: 83858468,
       name: "Quận Thủ Đức"
     },
     {
-      code: 0,
+      code: 83856684,
       name: "Quận Bình Tân"
     },
     {
-      code: 0,
+      code: 83857277,
       name: "Quận Hóc Môn"
     },
     {
-      code: 0,
+      code: 83856667,
       name: "Quận Bình Chánh"
     }
   ]

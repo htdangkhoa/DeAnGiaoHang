@@ -45,6 +45,14 @@ $(document).ready(function() {
       }
     });
 
+    var rDistrict = $("select[name='rDistrict']").val();
+
+    var sDistrict = $("select[name='sDistrict']").val();
+
+    if (!rDistrict || !sDistrict) {
+      isEmpty = true;
+    }
+
     if (isEmpty) {
       window.location.href = `/create-order?error=${encodeURI(
         "Please enter full information."
@@ -56,5 +64,35 @@ $(document).ready(function() {
     $(this).attr("type", "submit");
 
     $(this).click();
+  });
+
+  $("#confirmModel").on("shown.bs.modal", function(e) {
+    var price = 0;
+
+    var weight = parseFloat($("#ipWeight").val()); // 72.65
+
+    if (weight > 2) {
+      var rest = weight - 2; // 70.65
+
+      price = 20 + Math.ceil(rest / 0.5) * 5;
+    } else {
+      price = 20;
+    }
+
+    var rDistrict = $("select[name='rDistrict']").val();
+
+    if (rDistrict && rDistrict.indexOf("83") === 0) {
+      price *= 1.5;
+    }
+
+    var realPrice = price * 1000;
+
+    $("#ipPrice").val(realPrice);
+
+    $("#infoPrice").remove();
+
+    $(".modal-body").prepend(
+      `<p id="infoPrice">Thành tiền đơn hàng của bạn là <b>${realPrice}</b>.</p>`
+    );
   });
 });
