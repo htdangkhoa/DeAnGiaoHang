@@ -74,6 +74,8 @@ $(document).ready(function() {
     if (weight > 2) {
       var rest = weight - 2; // 70.65
 
+      // Math.celi là tính số lần cân nặng vượt khỏi 0.5kg.
+      // sau đó lấy số lần vượt, nhân cho 5k.
       price = 20 + Math.ceil(rest / 0.5) * 5;
     } else {
       price = 20;
@@ -81,6 +83,7 @@ $(document).ready(function() {
 
     var rDistrict = $("select[name='rDistrict']").val();
 
+    // Ứng với đầu code là 83 (là ngoại thành), thì giá tiền nhân tiếp cho 1.5.
     if (rDistrict && rDistrict.indexOf("83") === 0) {
       price *= 1.5;
     }

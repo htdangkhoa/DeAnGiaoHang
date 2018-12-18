@@ -63,8 +63,9 @@ router.post("/order", function(req, res) {
     );
   }
 
+  // gộp 3 mảng lại thành 1 Object.
   var products = _.zipWith(
-    _.isArray(productNames) ? productNames : [productNames],
+    _.isArray(productNames) ? productNames : [productNames], // Kt nếu là mảng thì truyền mãng vô zipWith, còn không phải mảng, truyền vào mảng 1 phần tử.
     _.isArray(productDescriptions)
       ? productDescriptions
       : [productDescriptions],
