@@ -1,3 +1,5 @@
+const config = require("../config");
+
 const path = require("path");
 const express = require("express");
 const favicon = require("serve-favicon");
@@ -9,7 +11,7 @@ const helmet = require("helmet");
 const swig = require("swig");
 const mongoose = require("mongoose");
 const md5 = require("md5");
-const config = require("../config");
+
 const api = require("./api");
 const order = require("./order");
 
@@ -194,10 +196,20 @@ app.get("/tracking-order", function(req, res) {
         });
       }
 
-      res.render("tracking-order", {
-        title: config.TITLES.TRACKING_ORDER,
-        order: order
-      });
+      User.findOne({ _id: order.assignedFor, role: User.roles.EMPLOYEE })
+        .then(function(employee) {
+          res.render("tracking-order", {
+            title: config.TITLES.TRACKING_ORDER,
+            order: order,
+            employee: employee
+          });
+        })
+        .catch(function(error) {
+          res.render("tracking-order", {
+            title: config.TITLES.TRACKING_ORDER,
+            error: "Somethings went wrong. Please try again."
+          });
+        });
     })
     .catch(function(error) {
       console.log(error);

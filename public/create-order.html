@@ -6,7 +6,7 @@
 <body>
   {% include "./components/nav.html" %}
 
-  <div class="container">
+  <div class="container container-padding-top-bottom">
     {% include "./components/error.html" %}
 
     <div class="row justify-content-center align-items-center">
@@ -29,7 +29,7 @@
                   <div class="form-group">
                     <h4>Người gửi</h4>
 
-                    <div>
+                    <div class="form-container">
                       <label for="ipSenderPhone">Số điện thoại người gửi</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -41,7 +41,7 @@
                       </div>
                     </div>
 
-                    <div>
+                    <div class="form-container">
                       <label for="ipSenderName">Họ tên người gửi</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -53,7 +53,7 @@
                       </div>
                     </div>
 
-                    <div>
+                    <div class="form-container">
                       <label for="ipSenderAddress">Địa chỉ người gửi</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -64,7 +64,7 @@
 
                         <input type="text" class="form-control" name="sAddress" id="ipSenderAddress" placeholder="Địa chỉ người gửi" value="{{ user.address }}" required>
 
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                           <select class="custom-select">
                             <option selected>Quận</option>
                             {% for district in urban  %}
@@ -74,7 +74,7 @@
                             <option value="{{ district.code }}">{{ district.name }}</option>
                             {% endfor %}
                           </select>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -82,7 +82,7 @@
                   <div class="form-group">
                     <h4>Người nhận</h4>
 
-                    <div>
+                    <div class="form-container">
                       <label for="ipReceieverPhone">Số điện thoại người nhận</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -94,7 +94,7 @@
                       </div>
                     </div>
 
-                    <div>
+                    <div class="form-container">
                       <label for="ipReceieverName">Họ tên người nhận</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -106,7 +106,7 @@
                       </div>
                     </div>
 
-                    <div>
+                    <div class="form-container">
                       <label for="ipReceieverAddress">Địa chỉ người nhận</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -117,7 +117,7 @@
 
                         <input type="text" class="form-control" name="rAddress" id="ipReceieverAddress" placeholder="Địa chỉ người nhận" required>
 
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                           <select class="custom-select">
                             <option selected>Quận</option>
                             {% for district in urban %}
@@ -127,7 +127,7 @@
                             <option value="{{ district.code }}">{{ district.name }}</option>
                             {% endfor %}
                           </select>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>

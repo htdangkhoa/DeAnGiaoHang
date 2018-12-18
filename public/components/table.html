@@ -32,7 +32,7 @@
                 <!-- <button type="submit" class="btn btn-success">Hoàn thành</button> -->
               
                 <select class="form-control" name="assignFor">
-                  <option selected>Choose...</option>
+                  <option disabled selected value>Choose...</option>
                   {% for em in employees %}
                   <option value="{{ em._id.toString() }}">{{ em.name }}</option>
                   {% endfor %}
@@ -59,7 +59,7 @@
             <button type="submit" class="btn btn-success">Hoàn thành</button>
           </form>
           {% else %}
-            {% if order.status === "pending" %}
+            {% if order.status === "pending"  && !order.assignedFor %}
             <form action="/api/update-status" method="POST">
               <input type="hidden" name="role" value="{{ user.role }}">
               <input type="hidden" name="_id" value="{{ order._id.toString() }}">

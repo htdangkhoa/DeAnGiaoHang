@@ -6,10 +6,8 @@
 <body>
   {% include "./components/nav.html" %}
 
-  <div class="container">
-    <p>
-      <b>Mã đơn hàng:</b> {{ order._id.toString() }}
-    </p>
+  <div class="container container-padding-top-bottom">
+    <p><b>Mã đơn hàng:</b> <code>{{ order._id.toString() }}</code></p>
     <p>
       <b>Trạng thái:</b>
       {% if order.status === "pending" %}
@@ -20,15 +18,29 @@
       <span class="badge badge-pill badge-danger">{{ order.status }}</span>
       {% endif %}
     </p>
+
+    <hr>
+
+    {% if employee %}
+    <p><b>Tên nhân viên:</b> {{ employee.name }}</p>
+    <p><b>Số điện thoại nhân viên:</b> {{ employee.phone }}</p>
+
+    <hr>
+    {% endif %}
     
     <p><b>Họ tên người gửi:</b> {{ order.sName }}</p>
     <p><b>Số điện thoại người gửi:</b> {{ order.sPhone }}</p>
     <p><b>Địa chỉ người gửi:</b> {{ order.sAddress }}</p>
 
+    <hr>
+
     <p><b>Họ tên người nhận:</b> {{ order.rName }}</p>
     <p><b>Số điện thoại người nhận:</b> {{ order.rPhone }}</p>
     <p><b>Địa chỉ người nhận:</b> {{ order.rAddress }}</p>
 
+    <hr>
+
+    <p><b>Danh sách sản phẩm:</b></p>
     {% include "./components/products.html" %}
   </div>
 

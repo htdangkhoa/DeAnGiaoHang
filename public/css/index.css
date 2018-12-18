@@ -8,6 +8,9 @@
 
 body .container {
   margin-bottom: 60px;
+}
+
+body .container-padding-top-bottom {
   padding-top: 12px;
   padding-bottom: 12px;
 }
@@ -80,4 +83,8 @@ body .container {
 .custom-select {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.form-container {
+  margin-bottom: 12px;
 }

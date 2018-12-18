@@ -44,9 +44,8 @@ router.post("/order", function(req, res) {
     !weight ||
     !note ||
     !charge ||
-    !_.isArray(productNames) ||
-    !_.isArray(productDescriptions) ||
-    !_.isArray(productQuantities)
+    !productNames ||
+    !productQuantities
   ) {
     return res.redirect(
       `/create-order?error=${encodeURI("Please enter full information.")}`
@@ -54,9 +53,9 @@ router.post("/order", function(req, res) {
   }
 
   var products = _.zipWith(
-    productNames,
-    productDescriptions,
-    productQuantities,
+    _.isArray(productNames) ? productNames : [productNames],
+    _.isArray(productDescriptions) ? productDescriptions : [productDescriptions],
+    _.isArray(productQuantities) ? productQuantities : [productQuantities],
     function(name, description, quantity) {
       return {
         productName: name,
@@ -79,7 +78,7 @@ router.post("/order", function(req, res) {
     if (error) {
       console.log(error);
 
-      return res.redirect(`/create-order?error=${encodeURI(error.errmsg)}`);
+      return res.redirect(`/create-order?error=${encodeURI(error.message)}`);
     }
 
     return res.redirect(`/tracking-order?_id=${order._id}`);
@@ -102,9 +101,7 @@ router.post("/assign", function(req, res) {
     .catch(function(error) {
       console.log(error);
 
-      return res.redirect(
-        `/info?error=${encodeURI(error.errmsg)}`
-      );
+      return res.redirect(`/info?error=${encodeURI(error.message)}`);
     });
 });
 
@@ -132,8 +129,8 @@ router.post("/update-status", function(req, res) {
 
       return res.redirect(
         role === roles.USER
-          ? `/cart?error=${encodeURI(error.errmsg)}`
-          : `/info?error=${encodeURI(error.errmsg)}`
+          ? `/cart?error=${encodeURI(error.message)}`
+          : `/info?error=${encodeURI(error.message)}`
       );
     });
 });

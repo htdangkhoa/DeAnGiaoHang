@@ -21,22 +21,40 @@ $(document).ready(function() {
   }
 
   $("#btnNextToStep2").click(function() {
-    $("#collapseOne").collapse("hide");
-
-    $("#collapseOne").on("hidden.bs.collapse", function() {
-      $("#collapseTwo").collapse("show");
-    });
+    $("#collapseTwo").collapse("show");
   });
 
   $("#btnNextToStep3").click(function() {
-    $("#collapseTwo").collapse("hide");
-
-    $("#collapseTwo").on("hidden.bs.collapse", function() {
-      $("#collapseThree").collapse("show");
-    });
+    $("#collapseThree").collapse("show");
   });
 
   $("#btnAddProduct").click(function() {
     $("#product-list").append($(".form-row.product-detail")[0].outerHTML);
+  });
+
+  $("#btnConfirm").click(function() {
+    var isEmpty = false;
+
+    var type = $(this).attr("type");
+
+    if (type !== "button") return;
+
+    $("input[required]").each(function(index, ele) {
+      if ($(ele).val().length === 0) {
+        isEmpty = true;
+      }
+    });
+
+    if (isEmpty) {
+      window.location.href = `/create-order?error=${encodeURI(
+        "Please enter full information."
+      )}`;
+
+      return;
+    }
+
+    $(this).attr("type", "submit");
+
+    $(this).click();
   });
 });
