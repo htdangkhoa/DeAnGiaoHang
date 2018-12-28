@@ -115,7 +115,7 @@ app.get("/info", function(req, res) {
   // For EMPLOYEE.
   if (user.role === User.roles.EMPLOYEE) {
     return Order.find({
-      status: "pending",
+      isSuccessed: false,
       assignedFor: user._id
     })
       .then(function(orders) {
@@ -140,9 +140,7 @@ app.get("/info", function(req, res) {
   }
 
   // For ADMIN.
-  return Order.find({
-    status: "pending"
-  })
+  return Order.find()
     .then(function(orders) {
       User.find({ role: User.roles.EMPLOYEE })
         .then(function(users) {

@@ -51,11 +51,26 @@ const Order = new Schema({
   },
   status: {
     type: Types.String,
-    default: "pending"
+    default: "pending",
+    lowercase: true
   },
   assignedFor: {
     type: Types.ObjectId
+  },
+  shipInTime: {
+    type: Types.Boolean,
+    default: false
+  },
+  isSuccessed: {
+    type: Types.Boolean,
+    default: false
+  },
+  isCanceled: {
+    type: Types.Boolean,
+    default: false
   }
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model("orders", Order);

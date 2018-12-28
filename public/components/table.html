@@ -23,52 +23,90 @@
         <td class="sender">{{ order.sName }}</td>
         <td class="receiver">{{ order.rName }}</td>
         <td class="action">
+          <div class="action-container">
           {% if user.role === "ADMIN" %}
-            <div class="action-container">
-              {% if !order.assignedFor %}
-              <form action="/api/assign" method="POST" class="form-inline assign-form">
-                <input type="hidden" name="_id" value="{{ order._id.toString() }}">
-              
-                <!-- <button type="submit" class="btn btn-success">Hoàn thành</button> -->
-              
-                <select class="form-control" name="assignFor">
-                  <option disabled selected value>Choose...</option>
-                  {% for em in employees %}
-                  <option value="{{ em._id.toString() }}">{{ em.name }}</option>
-                  {% endfor %}
-                </select>
-              
-                <button type="submit" class="btn btn-success">Chỉ định</button>
-              </form>
-              
+            {% if order.status === "pending" && !order.assignedFor %}
+            <form action="/api/assign" method="POST" class="form-inline assign-form">
+              <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+            
+              <select class="form-control" name="assignFor">
+                <option disabled selected value>Choose...</option>
+                {% for em in employees %}
+                <option value="{{ em._id.toString() }}">{{ em.name }}</option>
+                {% endfor %}
+              </select>
+            
+              <button type="submit" class="btn btn-success">Chỉ định</button>
+            </form>
+
+            <form action="/api/reject" method="POST">
+              <input type="hidden" name="role" value="{{ user.role }}">
+              <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+            
+              <button type="submit" class="btn btn-danger">Từ chồi</button>
+            </form>
+            {% endif %}
+
+            {% if order.status === "canceled" && !order.isCanceled %}
+            <form action="/api/confirm-canceled" method="POST">
+              <input type="hidden" name="role" value="{{ user.role }}">
+              <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+              <input type="hidden" name="isCanceled" value="true">
+            
+              <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+            </form>
+            {% endif %}
+          {% elseif user.role === "EMPLOYEE" %}
+            {% if order.status === "pending" %}
               <form action="/api/update-status" method="POST">
                 <input type="hidden" name="role" value="{{ user.role }}">
                 <input type="hidden" name="_id" value="{{ order._id.toString() }}">
-                <input type="hidden" name="status" value="rejected">
+                <input type="hidden" name="status" value="done">
               
-                <button type="submit" class="btn btn-danger">Từ chối</button>
+                <button type="submit" class="btn btn-success">Hoàn thành</button>
+              </form>
+
+              {% if !order.shipInTime %}
+              <form action="/api/ship-in-time" method="POST">
+                <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+                <input type="hidden" name="isShipInTime" value="true">
+              
+                <button type="submit" class="btn btn-warning">Giao trong ngày</button>
               </form>
               {% endif %}
-            </div>
-          {% elseif user.role === "EMPLOYEE" %}
-          <form action="/api/update-status" method="POST">
-            <input type="hidden" name="role" value="{{ user.role }}">
-            <input type="hidden" name="_id" value="{{ order._id.toString() }}">
-            <input type="hidden" name="status" value="done">
+            {% endif %}
+
+            {% if order.status === "canceled" && !order.isCanceled %}
+            <form action="/api/confirm-canceled" method="POST">
+              <input type="hidden" name="role" value="{{ user.role }}">
+              <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+              <input type="hidden" name="isCanceled" value="true">
             
-            <button type="submit" class="btn btn-success">Hoàn thành</button>
-          </form>
+              <button type="submit" class="btn btn-danger">Báo cáo hủy</button>
+            </form>
+            {% endif %}
           {% else %}
-            {% if order.status === "pending"  && !order.assignedFor %}
+            {% if order.status === "done" && !order.isSuccessed %}
+            <form action="/api/confirm-successed" method="POST">
+              <input type="hidden" name="role" value="{{ user.role }}">
+              <input type="hidden" name="_id" value="{{ order._id.toString() }}">
+              <input type="hidden" name="isSuccessed" value="true">
+            
+              <button type="submit" class="btn btn-success">Đã nhận hàng</button>
+            </form>
+            {% endif %}
+          
+            {% if order.status === "pending" %}
             <form action="/api/update-status" method="POST">
               <input type="hidden" name="role" value="{{ user.role }}">
               <input type="hidden" name="_id" value="{{ order._id.toString() }}">
               <input type="hidden" name="status" value="canceled">
-              
+            
               <button type="submit" class="btn btn-danger">Hủy bỏ</button>
             </form>
             {% endif %}
           {% endif %}
+          </div>
         </td>
       </tr>
       {% endfor %}

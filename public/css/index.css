@@ -67,8 +67,12 @@ body .container-padding-top-bottom {
   display: flex;
 }
 
-.table tbody tr .action .action-container form:nth-child(1) {
+.table tbody tr .action .action-container form {
   margin-right: 12px;
+}
+
+.table tbody tr .action .action-container form:last-child {
+  margin-right: 0;
 }
 
 .table tbody tr .action .action-container form.assign-form select {

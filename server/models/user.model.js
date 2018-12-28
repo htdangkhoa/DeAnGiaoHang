@@ -37,6 +37,8 @@ const User = new Schema({
     type: Types.String,
     default: roles.USER
   }
+}, {
+  timestamps: true
 });
 
 User.pre("save", function(next) {
