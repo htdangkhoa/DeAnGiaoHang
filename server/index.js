@@ -101,7 +101,11 @@ app.get("/signup", function(req, res) {
 });
 
 app.get("/info", function(req, res) {
+  const page = req.query.page;
+
   const user = req.session[md5("user")];
+
+  const limit = Order.limit;
 
   // For USER.
   if (!user) {
@@ -114,17 +118,26 @@ app.get("/info", function(req, res) {
 
   // For EMPLOYEE.
   if (user.role === User.roles.EMPLOYEE) {
-    return Order.find({
-      isSuccessed: false,
-      assignedFor: user._id
-    })
-      .then(function(orders) {
+    return Order.paginate(
+      {
+        isSuccessed: false,
+        assignedFor: user._id
+      },
+      { offset: (page - 1) * limit || 1, limit: limit }
+    )
+      .then(function(result) {
+        const orders = result.docs;
+
+        const pages = Math.ceil(result.total / limit);
+
         User.find({ role: User.roles.EMPLOYEE })
           .then(function(users) {
             return res.render("info", {
               title: config.TITLES.INFO,
               orders: orders,
-              employees: users
+              pages: pages,
+              employees: users,
+              path: req.path
             });
           })
           .catch(function(error) {
@@ -140,14 +153,20 @@ app.get("/info", function(req, res) {
   }
 
   // For ADMIN.
-  return Order.find()
-    .then(function(orders) {
+  return Order.paginate({}, { offset: (page - 1) * limit || 1, limit: limit })
+    .then(function(result) {
+      const orders = result.docs;
+
+      const pages = Math.ceil(result.total / limit);
+
       User.find({ role: User.roles.EMPLOYEE })
         .then(function(users) {
           return res.render("info", {
             title: config.TITLES.INFO,
             orders: orders,
-            employees: users
+            pages: pages,
+            employees: users,
+            path: req.path
           });
         })
         .catch(function(error) {
@@ -220,15 +239,31 @@ app.get("/tracking-order", function(req, res) {
 });
 
 app.get("/cart", function(req, res) {
+  const page = req.query.page;
+
   const user = req.session[md5("user")];
 
   if (!user) {
     return res.redirect("/login");
   }
 
-  return Order.find({ userId: user._id })
-    .then(function(orders) {
-      return res.render("cart", { title: config.TITLES.CART, orders: orders });
+  const limit = Order.limit;
+
+  return Order.paginate(
+    { userId: user._id },
+    { offset: (page - 1) * limit || 1, limit: limit }
+  )
+    .then(function(result) {
+      const orders = result.docs;
+
+      const pages = Math.ceil(result.total / limit);
+
+      return res.render("cart", {
+        title: config.TITLES.CART,
+        orders: orders,
+        pages: pages,
+        path: req.path
+      });
     })
     .catch(function(error) {
       return res.render("cart", { title: config.TITLES.CART, error: error });
