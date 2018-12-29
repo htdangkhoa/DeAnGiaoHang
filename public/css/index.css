@@ -24,6 +24,11 @@ body .container-padding-top-bottom {
   margin: 10px 0;
 }
 
+#map {
+  height: 500px;
+  width: 100%;
+}
+
 .message-error {
   color: red;
 }
