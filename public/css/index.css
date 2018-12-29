@@ -40,8 +40,10 @@ body .container-padding-top-bottom {
   -ms-transform: scaleX(-1);
 }
 
-.weight-info {
-  color: #dc3545;
+@media (max-width: 387px) {
+  #actionsProductContainer button:nth-child(1) {
+    margin-bottom: 12px;
+  }
 }
 
 .table-container {
