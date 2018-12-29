@@ -11,6 +11,7 @@ const helmet = require("helmet");
 const swig = require("swig");
 const mongoose = require("mongoose");
 const md5 = require("md5");
+const moment = require("moment");
 
 const api = require("./api");
 const order = require("./order");
@@ -218,6 +219,7 @@ app.get("/tracking-order", function(req, res) {
           res.render("tracking-order", {
             title: config.TITLES.TRACKING_ORDER,
             order: order,
+            time: moment(order.createdAt).locale("vi").format("DD MMM, YYYY HH:mm"),
             employee: employee
           });
         })
