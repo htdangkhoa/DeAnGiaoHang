@@ -219,7 +219,9 @@ app.get("/tracking-order", function(req, res) {
           res.render("tracking-order", {
             title: config.TITLES.TRACKING_ORDER,
             order: order,
-            time: moment(order.createdAt).locale("vi").format("DD MMM, YYYY HH:mm"),
+            time: moment(order.createdAt)
+              .locale("vi")
+              .format("DD MMM, YYYY HH:mm"),
             employee: employee
           });
         })
@@ -251,10 +253,13 @@ app.get("/cart", function(req, res) {
 
   const limit = Order.limit;
 
-  return Order.paginate(
-    { userId: user._id },
-    { offset: (page - 1) * limit || 1, limit: limit }
-  )
+  let offset = 0;
+
+  if (page) {
+    offset = (page - 1) * limit;
+  }
+
+  return Order.paginate({ userId: user._id }, { offset: offset, limit: limit })
     .then(function(result) {
       const orders = result.docs;
 
