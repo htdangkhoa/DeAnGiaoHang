@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon server/index.js production",
-    "dev": "nodemon server/index.js development & livereload . -w 200 -d",
+    "dev": "nodemon server/index.js development & livereload ./public -w 500 -d",
     "now": "chmod +x ./build.sh && ./build.sh"
   },
   "dependencies": {

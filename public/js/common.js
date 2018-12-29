@@ -28,8 +28,32 @@ $(document).ready(function() {
     $("#collapseThree").collapse("show");
   });
 
+  $("#product-list").bind("DOMNodeInserted", function(event) {
+    const indexInserted = $(this).children(".form-row.product-detail").length;
+
+    if (indexInserted > 1) {
+      $("#btnRemoveProduct").attr("disabled", false);
+    }
+  });
+
+  $("#product-list").bind("DOMNodeRemoved", function(event) {
+    const indexRemoved = $(this).children(".form-row.product-detail").length;
+
+    if (indexRemoved <= 2) {
+      $("#btnRemoveProduct").attr("disabled", true);
+    }
+  });
+
   $("#btnAddProduct").click(function() {
     $("#product-list").append($(".form-row.product-detail")[0].outerHTML);
+  });
+
+  $("#btnRemoveProduct").click(function() {
+    const productForms = $(".form-row.product-detail");
+
+    if (productForms.length < 2) return;
+
+    $(productForms[productForms.length - 1]).remove();
   });
 
   $("#btnConfirm").click(function() {
