@@ -108,6 +108,12 @@ app.get("/info", function(req, res) {
 
   const limit = Order.limit;
 
+  let offset = 0;
+
+  if (page) {
+    offset = (page - 1) * limit;
+  }
+
   // For USER.
   if (!user) {
     return res.redirect("/login");
@@ -124,7 +130,7 @@ app.get("/info", function(req, res) {
         isSuccessed: false,
         assignedFor: user._id
       },
-      { offset: (page - 1) * limit || 1, limit: limit }
+      { offset: offset, limit: limit }
     )
       .then(function(result) {
         const orders = result.docs;
@@ -154,7 +160,7 @@ app.get("/info", function(req, res) {
   }
 
   // For ADMIN.
-  return Order.paginate({}, { offset: (page - 1) * limit || 1, limit: limit })
+  return Order.paginate({}, { offset: offset, limit: limit })
     .then(function(result) {
       const orders = result.docs;
 
