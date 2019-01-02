@@ -82,4 +82,4 @@ Order.plugin(paging);
 
 module.exports = mongoose.model("orders", Order);
 
-module.exports.limit = 3;
+module.exports.limit = 30;
